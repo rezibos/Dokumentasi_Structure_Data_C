@@ -1,0 +1,44 @@
+set pagination off
+
+break main
+run
+
+echo \n========================================\n
+echo STEP 1: Deklarasi int a = 5\n
+echo ----------------------------------------\n
+next
+printf "a awal = %d\n", a
+printf "alamat a = %p\n\n", &a
+echo (variabel a berhasil dibuat dengan nilai awal 5)\n\n
+
+echo ========================================\n
+echo STEP 2: Pemanggilan fungsiv1(&a)\n
+echo ----------------------------------------\n
+next
+printf "setelah fungsiv1(&a), a = %d\n\n", a
+echo (fungsi menerima alamat a, lalu *p = 10 → nilai a ditimpa jadi 10)\n\n
+
+echo ========================================\n
+echo STEP 3: Operasi *b = 100\n
+echo ----------------------------------------\n
+next
+next
+next
+printf "setelah *b = 100, a = %d\n\n", a
+echo (pointer b menunjuk ke a, sehingga *b = 100 membuat a = 100)\n\n
+
+echo ========================================\n
+echo STEP 4: Pemanggilan fungsiv1(b)\n
+echo ----------------------------------------\n
+next
+printf "setelah fungsiv1(b), a = %d\n\n", a
+echo (fungsi menerima pointer b → menunjuk ke a, lalu *p = 10 → nilai a ditimpa lagi jadi 10)\n\n
+
+echo \n========================================\n
+echo RINGKASAN AKHIR\n
+echo ----------------------------------------\n
+printf "nilai akhir a = %d\n", a
+printf "alamat a     = %p\n\n", &a
+echo (Kesimpulan: angka 100 tidak bertahan karena fungsiv1 selalu menulis 10 ke alamat a)\n\n
+
+continue

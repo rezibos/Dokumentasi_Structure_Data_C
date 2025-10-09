@@ -1,0 +1,4 @@
+break main
+run uji1.dat
+print fptr
+continue
