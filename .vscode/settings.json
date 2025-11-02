@@ -8,6 +8,7 @@
         "string.h": "c",
         "iostream": "cpp",
         "string": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "ctype.h": "c"
     }
 }
