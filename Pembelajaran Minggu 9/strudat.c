@@ -50,7 +50,7 @@ int menu(){
   printf("\033[95;40m\033[1mC\033[0mari Data\n");
   printf("\033[96;40m\033[1mB\033[0merhenti Program\n");
   printf("\nPilihan Anda (Masukan huruf yang cetak tebal):");
-  scanf("%c", &pilih);
+  scanf_s("%c", &pilih);
   fflush(stdin);
   switch(pilih){
     case 'I':
@@ -65,7 +65,7 @@ int menu(){
         break;
     case 'H':
     case 'h':
-   	kerja = hapus;
+        kerja = hapus;
         return 3;
         break;
     case 'C':

@@ -9,6 +9,8 @@
         "iostream": "cpp",
         "string": "c",
         "stdbool.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "linklistdata.h": "c",
+        "helper.h": "c"
     }
 }
