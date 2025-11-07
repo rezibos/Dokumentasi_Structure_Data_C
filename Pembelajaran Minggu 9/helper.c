@@ -9,7 +9,7 @@ int lanjut(){
       if(lanjut=='T')
          return 1;
       else if(lanjut=='Y')
-	break;
+	      break;
    }
    return 0;
 }

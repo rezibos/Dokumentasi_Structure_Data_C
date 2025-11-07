@@ -18,7 +18,8 @@ int input(){
   printf("Masukan Angka NIK (6 digit):");
   scanf("%d", &temp->nik);
   printf("Masukan nama:");
-  scanf("%*c%[^\n]%*c", temp->nama);
+  // scanf("%*c%[^\n]%*c", temp->nama); // Before
+  scanf("%s", temp->nama); // After
   printf("Gender [P]erempuan/[L]aki :");
   scanf("%c%*c", &temp->gender);
 
@@ -32,7 +33,7 @@ int input(){
 void process(char *argv){
   f = fopen(argv, "a+");
   if(f == NULL){
-    printf("Could not open %s\n", argv);
+    printf("Could not open %s\n", argv[1]);
     exit(2);
   }
   loadData(f);
@@ -42,7 +43,7 @@ void process(char *argv){
 
 int menu(){
   char pilih;
-  printf("\e[1;1H\e[2J");
+  // printf("\e[1;1H\e[2J");
   printf("Welcome\n===============\n");
   printf("\033[97;40m\033[1mI\033[0mnput Data\n");
   printf("\033[93;40m\033[1mE\033[0mdit Data\n");
@@ -85,16 +86,16 @@ int menu(){
 int main(int argc, char *argv[]){
 
   if(argc <= 1){
-     printf("No argumen found.\nSyntax:\nstrudat full_path_data_file\n");
-     return 1;
+      printf("No argumen found.\nSyntax:\nstrudat  full_path_data_file\n");
+      return 1;
   }
 
   int choice;
   while((choice=menu())!=9){
-     if(choice>=1 && choice <=4){
-        process(argv[1]);
-     }
-     printf("\a");
+      if(choice>=1 && choice <=4){
+          process(argv[1]);
+      }
+      printf("\a");
   }
 
   printf("\nThank you for using this app\n");

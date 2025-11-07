@@ -91,7 +91,8 @@ void loadData(FILE *file){
     penduduk *tmp;
     while(1){
         tmp = createNewLink();
-        int result = fscanf(file, "%d;%100[^;];%c\n", &tmp->nik, tmp->nama, &tmp->gender);
+        // int result = fscanf(file, "%d;%100[^;];%c\n", &tmp->nik, tmp->nama, &tmp->gender); // BEFORE
+        int result = fscanf(file, "%d;%s;%c \n", &tmp->nik, tmp->nama, &tmp->gender); // AFTER
         
         if(result == 3){
             addNewLink(tmp);
