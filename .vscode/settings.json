@@ -10,7 +10,12 @@
         "string": "c",
         "stdbool.h": "c",
         "ctype.h": "c",
+<<<<<<< HEAD
         "linklistdata.h": "c",
         "helper.h": "c"
+=======
+        "helper.h": "c",
+        "linklistdata.h": "c"
+>>>>>>> 9d06bb2 (Update MInggu 10 V1 - Linux)
     }
 }
