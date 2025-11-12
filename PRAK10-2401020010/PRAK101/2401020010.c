@@ -1,93 +1,104 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
 struct Node {
     int data;
-    struct Node* left;
-    struct Node* right;
+    struct Node *left, *right;
 };
 
-struct Node* createNode(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = data;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    if (node == NULL) {
+        printf("Error: Gagal alokasi memori untuk node baru.\n");
+        exit(EXIT_FAILURE);
+    }
+    node->data = data;
+    node->left = node->right = NULL;
+    return node;
 }
 
 struct Node* insert(struct Node* root, int data) {
-    if(root == NULL){
-        return createNode(data);
-    }
-    if(data < root->data){
+    if (root == NULL)
+        return newNode(data);
+    
+    if (data < root->data)
         root->left = insert(root->left, data);
-    } else if(data > root->data) {
+    else if (data > root->data)
         root->right = insert(root->right, data);
-    }
+        
     return root;
 }
 
-int maxDepth(struct Node* node){
-    if(node == NULL) return 0;
-    int leftDepth = maxDepth(node->left);
-    int rightDepth = maxDepth(node->right);
-    return(leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
+int maxDepth(struct Node* node) {
+    if (node == NULL)
+        return -1;
+    else {
+        int lDepth = maxDepth(node->left);
+        int rDepth = maxDepth(node->right);
+
+        if (lDepth > rDepth)
+            return (lDepth + 1);
+        else
+            return (rDepth + 1);
+    }
 }
 
-void displayTree(struct Node* root, int space){
-    if(root == NULL) return;
+void printTree(struct Node* root) {
+    if (root == NULL) return;
+
+    char char_ul = 218;
+    char char_ur = 191;
     
-    space += 5;
-
-    displayTree(root->right, space);
-
-    printf("\n");
-    for(int i = 5; i < space; i++){
-        printf(" ");
-    }
-
-    if(root->left && root->right){
-        printf("%c%d\n", 218, root->data);
-    } else if(root->left) {
-        printf("%c%d\n", 218, root->data);
-    } else if(root->right) {
-        printf("%c%d\n", 191, root->data);
-    } else {
+    int depth = maxDepth(root);
+    
+    if (depth == 0) { 
         printf("%d\n", root->data);
+    } else if (depth == 1) { 
+        if (root->left == NULL && root->right != NULL) { 
+            printf("%d%c\n", root->data, char_ur);
+            printf("  %d\n", root->right->data);
+        } else if (root->left != NULL && root->right == NULL) { 
+            printf("%c%d\n", char_ul, root->data);
+            printf("%d\n", root->left->data);
+        } else {
+            printf("%c%d%c\n", char_ul, root->data, char_ur);
+            printf("%d  %d\n", root->left->data, root->right->data);
+        }
     }
-
-    displayTree(root->left, space);
+    else if (depth >= 2) {
+        if (root->left != NULL && root->right != NULL && root->left->left != NULL) {
+            printf("  %c%d%c\n", char_ul, root->data, char_ur);
+            printf("%c%d  %d\n", char_ul, root->left->data, root->right->data);
+            printf("%d\n", root->left->left->data);
+        } else if (root->left != NULL && root->right != NULL) {
+            printf("%c%d%c\n", char_ul, root->data, char_ur);
+            printf("%d  %d\n", root->left->data, root->right->data);
+        }
+    }
 }
 
-int main(){
+int main() {
     struct Node* root = NULL;
-    char choice;
-    int value;
+    int angka;
+    char lagi;
+    int depth = 0;
 
-    printf("=== PRPGRAM BINARY TREE SEDERHANA ===\n");
-    
     do {
-        printf("Masukan angka bulat: ");
-        scanf("%d", &value);
-        root = insert(root, value);
+        printf("\nMasukan angka bulat: ");
+        scanf("%d%*c", &angka);
 
-        int depth = maxDepth(root) - 1;
-        printf("Susunan Binary Tree (Depth : %d)\n", depth);
-        displayTree(root, 0);
-        printf("\n");
+        root = insert(root, angka);
+        depth = maxDepth(root);
 
-        printf("Masih ada masukan? Y/T _ ");
-        scanf(" %c", &choice);
-     } while(choice == 'Y' || choice == 'y');
+        printf("\nSusunan Binary Tree (Depth: %d)\n", depth);
+        printTree(root);
 
-     printf("Program selesai.\n");
-     return 0;
+        printf("\nMasih ada masukan? Y/T ");
+        scanf("%c%*c", &lagi); 
+        
+    } while (lagi == 'Y' || lagi == 'y');
+
+    return 0;
 }
-      
-    
-
-
-
-
-
